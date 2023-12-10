@@ -1,50 +1,67 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificador de Correo Electrónico</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Potencias Fraccionales de Dos</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 50%;
+      margin: 20px;
+    }
+
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+  </style>
 </head>
 <body>
 
-<h2>Verificador de Correo Electrónico</h2>
+<h2>Potencias Fraccionales de Dos</h2>
 
-<p>Ingrese una cadena de texto para verificar si es un correo electrónico válido:</p>
-
-<input type="text" id="cadenaInput" placeholder="Ingrese la cadena...">
-<button onclick="verificarCorreo()">Verificar</button>
-
-<p id="resultado"></p>
+<table>
+  <thead>
+    <tr>
+      <th>Potencia</th>
+      <th>Fracción</th>
+      <th>Suma</th>
+    </tr>
+  </thead>
+  <tbody id="tablaResultado"></tbody>
+</table>
 
 <script>
-function esCorreoValido(cadena) {
-    // Expresión regular para verificar el formato del correo electrónico
-    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function sumaFracciones(n) {
+    let potencia = 1;
+    let fraccion = 1.0;
+    let suma = 0.0;
 
-    // Verificar si la cadena cumple con el formato del correo electrónico
-    if (regexCorreo.test(cadena)) {
-        // Obtener la parte después de "@"
-        const dominio = cadena.split('@')[1];
+    let tablaResultado = document.getElementById("tablaResultado");
 
-        // Verificar las terminaciones especificadas
-        if (dominio.endsWith('.com') || dominio.endsWith('.com.mx') || dominio.endsWith('.mx')) {
-            return true;
-        }
+    for (let i = 0; i < n; i++) {
+      let fila = tablaResultado.insertRow();
+      let celdaPotencia = fila.insertCell(0);
+      let celdaFraccion = fila.insertCell(1);
+      let celdaSuma = fila.insertCell(2);
+
+      celdaPotencia.textContent = potencia;
+      celdaFraccion.textContent = fraccion;
+      celdaSuma.textContent = suma;
+
+      suma += fraccion;
+      potencia *= 2;
+      fraccion /= 2;
     }
-    return false;
-}
+  }
 
-function verificarCorreo() {
-    const cadenaIngresada = document.getElementById("cadenaInput").value;
-    const resultadoElemento = document.getElementById("resultado");
+  // Define el número de filas que deseas mostrar
+  const numeroFilas = 7;
 
-    // Verificar si es un correo electrónico válido
-    if (esCorreoValido(cadenaIngresada)) {
-        resultadoElemento.textContent = "La cadena ingresada es un correo electrónico válido.";
-    } else {
-        resultadoElemento.textContent = "La cadena ingresada NO es un correo electrónico válido.";
-    }
-}
+  // Llama a la función con el número de filas deseado
+  sumaFracciones(numeroFilas);
 </script>
 
 </body>
