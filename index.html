@@ -3,88 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contador de Números Mayores que X</title>
+  <title>Datos y Promedio</title>
 </head>
 <body>
 
-<h2>Contador de Números Mayores que X</h2>
+<h2>Ingresar Datos y Contar los Mayores que el Promedio</h2>
 
-<label for="numerosInput">Ingrese una lista de números (separados por comas): </label>
-<input type="text" id="numerosInput">
+<label for="cantidadDatos">Ingrese la cantidad de datos: </label>
+<input type="number" id="cantidadDatos">
 
-<label for="valorX">Ingrese el valor de X: </label>
-<input type="number" id="valorX">
+<button onclick="ingresarDatos()">Ingresar Datos</button>
 
-<button onclick="contarMayores()">Contar Números Mayores que X</button>
+<div id="datosContainer" style="display: none;">
+  <h3>Ingrese los datos uno por uno:</h3>
+  <div id="datosInputs"></div>
+  <button onclick="calcularPromedio()">Calcular Promedio</button>
+</div>
 
 <p id="resultado"></p>
 
 <script>
-  function contarMayores() {
-    const numerosInput = document.getElementById("numerosInput").value;
-    const valorX = parseFloat(document.getElementById("valorX").value);
+  function ingresarDatos() {
+    const cantidadDatos = parseInt(document.getElementById("cantidadDatos").value);
 
-    // Verifica que se ingresen valores válidos
-    if (numerosInput.trim() === "" || isNaN(valorX)) {
-      alert("Ingrese una lista de números y un valor válido para X.");
+    if (isNaN(cantidadDatos) || cantidadDatos <= 0) {
+      alert("Ingrese un número válido para la cantidad de datos.");
       return;
     }
 
-    // Convierte la cadena de números a un array de números
-    const numeros = numerosInput.split(",").map(num => parseFloat(num));
+    const datosContainer = document.getElementById("datosContainer");
+    const datosInputs = document.getElementById("datosInputs");
 
-    // Filtra los números que son mayores que X
-    const mayoresQueX = numeros.filter(num => num > valorX);
+    // Limpiar cualquier entrada anterior
+    datosInputs.innerHTML = "";
 
-    // Muestra el resultado
-    const resultadoElement = document.getElementById("resultado");
-    resultadoElement.textContent = `Hay ${mayoresQueX.length} números mayores que ${valorX}.`;
+    for (let i = 0; i < cantidadDatos; i++) {
+      const input = document.createElement("input");
+      input.type = "number";
+      input.placeholder = `Dato ${i + 1}`;
+      datosInputs.appendChild(input);
+    }
+
+    datosContainer.style.display = "block";
   }
-</script>
 
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contador de Números Mayores que X</title>
-</head>
-<body>
+  function calcularPromedio() {
+    const datosInputs = document.getElementById("datosInputs").querySelectorAll("input");
 
-<h2>Contador de Números Mayores que X</h2>
+    const datos = Array.from(datosInputs).map(input => parseFloat(input.value));
 
-<label for="numerosInput">Ingrese una lista de números (separados por comas): </label>
-<input type="text" id="numerosInput">
-
-<label for="valorX">Ingrese el valor de X: </label>
-<input type="number" id="valorX">
-
-<button onclick="contarMayores()">Contar Números Mayores que X</button>
-
-<p id="resultado"></p>
-
-<script>
-  function contarMayores() {
-    const numerosInput = document.getElementById("numerosInput").value;
-    const valorX = parseFloat(document.getElementById("valorX").value);
-
-    // Verifica que se ingresen valores válidos
-    if (numerosInput.trim() === "" || isNaN(valorX)) {
-      alert("Ingrese una lista de números y un valor válido para X.");
+    if (datos.some(isNaN)) {
+      alert("Ingrese datos numéricos válidos.");
       return;
     }
 
-    // Convierte la cadena de números a un array de números
-    const numeros = numerosInput.split(",").map(num => parseFloat(num));
+    const suma = datos.reduce((total, dato) => total + dato, 0);
+    const promedio = suma / datos.length;
 
-    // Filtra los números que son mayores que X
-    const mayoresQueX = numeros.filter(num => num > valorX);
+    const mayoresQuePromedio = datos.filter(dato => dato > promedio);
 
-    // Muestra el resultado
     const resultadoElement = document.getElementById("resultado");
-    resultadoElement.textContent = `Hay ${mayoresQueX.length} números mayores que ${valorX}.`;
+    resultadoElement.textContent = `El promedio es ${promedio}. Hay ${mayoresQuePromedio.length} dato(s) mayor(es) que el promedio.`;
   }
 </script>
 
