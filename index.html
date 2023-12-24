@@ -1,50 +1,91 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificador de Correo Electrónico</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contador de Números Mayores que X</title>
 </head>
 <body>
 
-<h2>Verificador de Correo Electrónico</h2>
+<h2>Contador de Números Mayores que X</h2>
 
-<p>Ingrese una cadena de texto para verificar si es un correo electrónico válido:</p>
+<label for="numerosInput">Ingrese una lista de números (separados por comas): </label>
+<input type="text" id="numerosInput">
 
-<input type="text" id="cadenaInput" placeholder="Ingrese la cadena...">
-<button onclick="verificarCorreo()">Verificar</button>
+<label for="valorX">Ingrese el valor de X: </label>
+<input type="number" id="valorX">
+
+<button onclick="contarMayores()">Contar Números Mayores que X</button>
 
 <p id="resultado"></p>
 
 <script>
-function esCorreoValido(cadena) {
-    // Expresión regular para verificar el formato del correo electrónico
-    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function contarMayores() {
+    const numerosInput = document.getElementById("numerosInput").value;
+    const valorX = parseFloat(document.getElementById("valorX").value);
 
-    // Verificar si la cadena cumple con el formato del correo electrónico
-    if (regexCorreo.test(cadena)) {
-        // Obtener la parte después de "@"
-        const dominio = cadena.split('@')[1];
-
-        // Verificar las terminaciones especificadas
-        if (dominio.endsWith('.com') || dominio.endsWith('.com.mx') || dominio.endsWith('.mx')) {
-            return true;
-        }
+    // Verifica que se ingresen valores válidos
+    if (numerosInput.trim() === "" || isNaN(valorX)) {
+      alert("Ingrese una lista de números y un valor válido para X.");
+      return;
     }
-    return false;
-}
 
-function verificarCorreo() {
-    const cadenaIngresada = document.getElementById("cadenaInput").value;
-    const resultadoElemento = document.getElementById("resultado");
+    // Convierte la cadena de números a un array de números
+    const numeros = numerosInput.split(",").map(num => parseFloat(num));
 
-    // Verificar si es un correo electrónico válido
-    if (esCorreoValido(cadenaIngresada)) {
-        resultadoElemento.textContent = "La cadena ingresada es un correo electrónico válido.";
-    } else {
-        resultadoElemento.textContent = "La cadena ingresada NO es un correo electrónico válido.";
+    // Filtra los números que son mayores que X
+    const mayoresQueX = numeros.filter(num => num > valorX);
+
+    // Muestra el resultado
+    const resultadoElement = document.getElementById("resultado");
+    resultadoElement.textContent = `Hay ${mayoresQueX.length} números mayores que ${valorX}.`;
+  }
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contador de Números Mayores que X</title>
+</head>
+<body>
+
+<h2>Contador de Números Mayores que X</h2>
+
+<label for="numerosInput">Ingrese una lista de números (separados por comas): </label>
+<input type="text" id="numerosInput">
+
+<label for="valorX">Ingrese el valor de X: </label>
+<input type="number" id="valorX">
+
+<button onclick="contarMayores()">Contar Números Mayores que X</button>
+
+<p id="resultado"></p>
+
+<script>
+  function contarMayores() {
+    const numerosInput = document.getElementById("numerosInput").value;
+    const valorX = parseFloat(document.getElementById("valorX").value);
+
+    // Verifica que se ingresen valores válidos
+    if (numerosInput.trim() === "" || isNaN(valorX)) {
+      alert("Ingrese una lista de números y un valor válido para X.");
+      return;
     }
-}
+
+    // Convierte la cadena de números a un array de números
+    const numeros = numerosInput.split(",").map(num => parseFloat(num));
+
+    // Filtra los números que son mayores que X
+    const mayoresQueX = numeros.filter(num => num > valorX);
+
+    // Muestra el resultado
+    const resultadoElement = document.getElementById("resultado");
+    resultadoElement.textContent = `Hay ${mayoresQueX.length} números mayores que ${valorX}.`;
+  }
 </script>
 
 </body>
