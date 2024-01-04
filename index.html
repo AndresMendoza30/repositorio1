@@ -1,50 +1,54 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificador de Correo Electrónico</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Producto Interno y Ortogonalidad</title>
 </head>
 <body>
 
-<h2>Verificador de Correo Electrónico</h2>
+<h2>Producto Interno y Ortogonalidad de Listas de Números</h2>
 
-<p>Ingrese una cadena de texto para verificar si es un correo electrónico válido:</p>
+<label for="listaA">Ingrese la lista A (números separados por comas): </label>
+<input type="text" id="listaA">
 
-<input type="text" id="cadenaInput" placeholder="Ingrese la cadena...">
-<button onclick="verificarCorreo()">Verificar</button>
+<label for="listaB">Ingrese la lista B (números separados por comas): </label>
+<input type="text" id="listaB">
+
+<button onclick="calcularProductoInterno()">Calcular Producto Interno</button>
 
 <p id="resultado"></p>
 
 <script>
-function esCorreoValido(cadena) {
-    // Expresión regular para verificar el formato del correo electrónico
-    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function calcularProductoInterno() {
+    const listaA = document.getElementById("listaA").value;
+    const listaB = document.getElementById("listaB").value;
 
-    // Verificar si la cadena cumple con el formato del correo electrónico
-    if (regexCorreo.test(cadena)) {
-        // Obtener la parte después de "@"
-        const dominio = cadena.split('@')[1];
+    const arrayA = listaA.split(",").map(Number);
+    const arrayB = listaB.split(",").map(Number);
 
-        // Verificar las terminaciones especificadas
-        if (dominio.endsWith('.com') || dominio.endsWith('.com.mx') || dominio.endsWith('.mx')) {
-            return true;
-        }
+    if (arrayA.length !== arrayB.length) {
+      alert("Las listas deben tener la misma longitud.");
+      return;
     }
-    return false;
-}
 
-function verificarCorreo() {
-    const cadenaIngresada = document.getElementById("cadenaInput").value;
-    const resultadoElemento = document.getElementById("resultado");
+    const productoInterno = calcularProductoInternoArrays(arrayA, arrayB);
 
-    // Verificar si es un correo electrónico válido
-    if (esCorreoValido(cadenaIngresada)) {
-        resultadoElemento.textContent = "La cadena ingresada es un correo electrónico válido.";
+    const resultadoElement = document.getElementById("resultado");
+    resultadoElement.textContent = `El producto interno es: ${productoInterno}`;
+
+    if (productoInterno === 0) {
+      resultadoElement.textContent += "\nLas listas son ortogonales.";
     } else {
-        resultadoElemento.textContent = "La cadena ingresada NO es un correo electrónico válido.";
+      resultadoElement.textContent += "\nLas listas no son ortogonales.";
     }
-}
+  }
+
+  function calcularProductoInternoArrays(arrayA, arrayB) {
+    return arrayA.reduce((productoInterno, valorA, index) => {
+      return productoInterno + valorA * arrayB[index];
+    }, 0);
+  }
 </script>
 
 </body>
