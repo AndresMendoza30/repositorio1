@@ -1,50 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificador de Correo Electrónico</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Campeonato de Fútbol</title>
 </head>
 <body>
 
-<h2>Verificador de Correo Electrónico</h2>
+<h2>Simulador de Campeonato de Fútbol</h2>
 
-<p>Ingrese una cadena de texto para verificar si es un correo electrónico válido:</p>
+<div id="inputEquipos">
+  <label for="equipos">Ingrese los nombres de los equipos (separados por coma): </label>
+  <input type="text" id="equipos" placeholder="Equipo1,Equipo2,Equipo3,...">
+  <button onclick="iniciarCampeonato()">Iniciar Campeonato</button>
+</div>
 
-<input type="text" id="cadenaInput" placeholder="Ingrese la cadena...">
-<button onclick="verificarCorreo()">Verificar</button>
-
-<p id="resultado"></p>
+<div id="resultados" style="display: none;">
+  <h3>Resultados del Campeonato</h3>
+  <ul id="rondas"></ul>
+  <p id="campeon"></p>
+</div>
 
 <script>
-function esCorreoValido(cadena) {
-    // Expresión regular para verificar el formato del correo electrónico
-    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function iniciarCampeonato() {
+    const equiposInput = document.getElementById("equipos").value;
+    const equipos = equiposInput.split(",").map(equipo => equipo.trim());
 
-    // Verificar si la cadena cumple con el formato del correo electrónico
-    if (regexCorreo.test(cadena)) {
-        // Obtener la parte después de "@"
-        const dominio = cadena.split('@')[1];
-
-        // Verificar las terminaciones especificadas
-        if (dominio.endsWith('.com') || dominio.endsWith('.com.mx') || dominio.endsWith('.mx')) {
-            return true;
-        }
+    if (equipos.length !== 8) {
+      alert("Debe ingresar exactamente 8 equipos.");
+      return;
     }
-    return false;
-}
 
-function verificarCorreo() {
-    const cadenaIngresada = document.getElementById("cadenaInput").value;
-    const resultadoElemento = document.getElementById("resultado");
+    const rondas = [];
+    rondas.push(equipos);
 
-    // Verificar si es un correo electrónico válido
-    if (esCorreoValido(cadenaIngresada)) {
-        resultadoElemento.textContent = "La cadena ingresada es un correo electrónico válido.";
-    } else {
-        resultadoElemento.textContent = "La cadena ingresada NO es un correo electrónico válido.";
+    while (rondas[rondas.length - 1].length > 1) {
+      const nuevaRonda = [];
+      for (let i = 0; i < rondas[rondas.length - 1].length; i += 2) {
+        const equipo1 = rondas[rondas.length - 1][i];
+        const equipo2 = rondas[rondas.length - 1][i + 1];
+
+        const resultado = prompt(`Ingrese el resultado del partido entre ${equipo1} y ${equipo2}:`);
+        const ganador = (resultado === '1') ? equipo1 : equipo2;
+        nuevaRonda.push(ganador);
+      }
+      rondas.push(nuevaRonda);
     }
-}
+
+    mostrarResultados(rondas);
+  }
+
+  function mostrarResultados(rondas) {
+    const resultadosElement = document.getElementById("resultados");
+    resultadosElement.style.display = "block";
+
+    const rondasElement = document.getElementById("rondas");
+    rondasElement.innerHTML = "";
+
+    for (let i = 0; i < rondas.length; i++) {
+      const rondaItem = document.createElement("li");
+      rondaItem.textContent = `Ronda ${i + 1}: ${rondas[i].join(" -> ")}`;
+      rondasElement.appendChild(rondaItem);
+    }
+
+    const campeonElement = document.getElementById("campeon");
+    campeonElement.textContent = `¡${rondas[rondas.length - 1][0]} es el campeón del torneo!`;
+  }
 </script>
 
 </body>
