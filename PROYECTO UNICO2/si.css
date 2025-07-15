@@ -1,0 +1,164 @@
+/* Estilos para la flor roja */
+.flor {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 50px auto;
+}
+
+.petalo {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: red;
+    border-radius: 50%;
+    transform-origin: 50% 100%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    animation: petaloAnim 1.2s ease-in-out;
+}
+
+.petalo-1 {
+    top: 0;
+    left: 20px;
+    transform: rotate(0deg);
+}
+
+.petalo-2 {
+    top: 20px;
+    left: 0;
+    transform: rotate(90deg);
+}
+
+.petalo-3 {
+    top: 20px;
+    left: 40px;
+    transform: rotate(270deg);
+}
+
+.petalo-4 {
+    top: 40px;
+    left: 20px;
+    transform: rotate(180deg);
+}
+
+.petalo-5 {
+    top: 10px;
+    left: 60px;
+    transform: rotate(45deg);
+}
+
+.petalo-6 {
+    top: 60px;
+    left: 60px;
+    transform: rotate(135deg);
+}
+
+.petalo-7 {
+    top: 60px;
+    left: 10px;
+    transform: rotate(225deg);
+}
+
+.petalo-8 {
+    top: 10px;
+    left: 10px;
+    transform: rotate(315deg);
+}
+
+.centro {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: yellow;
+    border-radius: 50%;
+    top: 30px;
+    left: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    animation: centroAnim 1.2s ease-in-out;
+}
+
+@keyframes petaloAnim {
+    0% { transform: scale(0) rotate(0deg); opacity: 0; }
+    60% { transform: scale(1.2) rotate(0deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes centroAnim {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Estilos para la flor grande */
+.flor-grande {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 30px auto;
+    animation: moverFlor 2.5s infinite ease-in-out alternate;
+}
+
+.flor-grande .petalo {
+    position: absolute;
+    width: 40px;
+    height: 70px;
+    background: #ff2d55;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    left: 40px;
+    top: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    opacity: 0.95;
+}
+
+.flor-grande .centro {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #ff0000;
+    border-radius: 50%;
+    top: 40px;
+    left: 40px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 2;
+}
+
+.flor-grande .tallo {
+    position: absolute;
+    width: 12px;
+    height: 120px;
+    background: linear-gradient(180deg, #4caf50 60%, #388e3c 100%);
+    left: 31%;
+    top: 100px;
+    transform: translateX(-50%);
+    border-radius: 6px;
+    z-index: 0;
+}
+
+@keyframes moverFlor {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20px) rotate(-2deg); }
+}
+
+.pasto {
+    width: 100vw;
+    height: 60px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, #43a047 60%, #7bc67b 100%);
+    border-top-left-radius: 40px 20px;
+    border-top-right-radius: 40px 20px;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+.pasto .hoja {
+    width: 18px;
+    height: 40px;
+    background: #388e3c;
+    border-radius: 0 0 18px 18px;
+    margin: 0 2px;
+    display: inline-block;
+    opacity: 0.7;
+}

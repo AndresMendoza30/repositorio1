@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARA MI AMADA DIANITA KAJAKA</title>
+    <link rel="stylesheet" href="/ola.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Mensaje romántico flotante */
+        .mensaje-romantico {
+            position: fixed;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.13);
+            border-radius: 30px;
+            box-shadow: 0 8px 32px 0 #ffe60055, 0 0 0 4px #ee9ca744;
+            backdrop-filter: blur(8px);
+            padding: 32px 38px 32px 38px;
+            color: #ffe600;
+            font-size: 1.7em;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 2px;
+            z-index: 100;
+            animation: aparecerMensaje 2.2s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        @keyframes aparecerMensaje {
+            0% { opacity: 0; transform: translateX(-50%) scale(0.7); }
+            60% { opacity: 1; transform: translateX(-50%) scale(1.08); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1); }
+        }
+        .mensaje-romantico .corazon {
+            color: #ff6b6b;
+            font-size: 1.2em;
+            margin: 0 6px;
+            animation: latido 1.2s infinite;
+        }
+        @keyframes latido {
+            0%, 100% { transform: scale(1); }
+            20% { transform: scale(1.2); }
+            40% { transform: scale(1); }
+        }
+        /* Luna interactiva en la esquina superior izquierda */
+        .moon-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .moon {
+            --size: 150px;
+            --offset: 100%;
+            --x: 70%;
+            --y: 50%;
+            background: white;
+            width: var(--size);
+            height: var(--size);
+            border-radius: 50%;
+            mask-image: radial-gradient(
+                circle calc(var(--size) * 0.45) at var(--x) var(--y),
+                transparent var(--offset),
+                black calc(var(--offset) + 1%)
+            );
+            -webkit-mask-image: radial-gradient(
+                circle calc(var(--size) * 0.45) at var(--x) var(--y),
+                transparent var(--offset),
+                black calc(var(--offset) + 1%)
+            );
+            box-shadow: 0 0 40px 10px #fff8, 0 0 80px 20px #ffe60044;
+        }
+        body {
+            background: #181c2b;
+            font-family: 'Segoe UI', cursive, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            /* overflow: hidden; */
+        }
+        h1 {
+            color: #ffe600 !important;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 0 0 8px #ffe600, 0 0 20px #fff;
+        }
+        p {
+            color: #ffe600 !important;
+            font-size: 1.2em;
+            margin-bottom: 25px;
+            text-align: center;
+            text-shadow: 0 0 8px #ffe600, 0 0 20px #fff;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .btn {
+            background: #ee9ca7;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 32px;
+            font-size: 1.1em;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: background 0.3s;
+            display: block;
+            margin: 0 auto 20px auto;
+        }
+        .btn:hover {
+            background: #ffdde1;
+            color: #ee9ca7;
+        }
+        .flor {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 20px auto;
+        }
+        .petalo {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: #ff6b6b;
+            border-radius: 50%;
+        }
+        .petalo-1 { top: 0; left: 25%; transform: translateX(-50%); }
+        .petalo-2 { top: 25%; right: 0; transform: translateY(-50%); }
+        .petalo-3 { bottom: 0; left: 25%; transform: translateX(-50%) rotate(90deg); }
+        .petalo-4 { top: 25%; left: 0; transform: translateY(-50%) rotate(90deg); }
+        .petalo-5 { top: 10%; left: 10%; transform: translate(-50%, -50%) rotate(45deg); }
+        .petalo-6 { top: 10%; right: 10%; transform: translate(50%, -50%) rotate(45deg); }
+        .petalo-7 { bottom: 10%; left: 10%; transform: translate(-50%, 50%) rotate(45deg); }
+        .petalo-8 { bottom: 10%; right: 10%; transform: translate(50%, 50%) rotate(45deg); }
+        .centro {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff4757;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .flor-grande {
+            width: 200px;
+            height: 200px;
+            animation: vientoFlor 4s infinite ease-in-out;
+        }
+        @keyframes vientoFlor {
+            0% { transform: rotate(-7deg); }
+            20% { transform: rotate(-3deg); }
+            40% { transform: rotate(0deg); }
+            60% { transform: rotate(3deg); }
+            80% { transform: rotate(7deg); }
+            100% { transform: rotate(-7deg); }
+        }
+        .tallo {
+            position: absolute;
+            width: 10px;
+            height: 60px;
+            background: #2ecc71;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px;
+        }
+        /* .hoja-flor eliminado, no se usará en el diseño anterior */
+        .pasto-svg {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100vw;
+            height: 220px;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+        @keyframes moverPasto {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+        @keyframes moverHoja {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="mensaje-romantico" id="mensajeRomantico" style="display:none;">
+      <span class="corazon">❤️</span>
+      teamo musho mi amor preciosa hermosa bella arte, me encantas KAJAJAJ MI VIDAAA JAKAJJ
+      <span class="corazon">❤️</span>
+    </div>
+    <div class="moon-container">
+      <div class="moon"></div>
+    </div>
+    <div style="display:flex; justify-content:center; gap:10px; margin-bottom:20px;">
+        <img src="https://img.icons8.com/color/96/000000/rose.png" alt="Rosa roja" style="width:60px; height:60px;" />
+        <img src="https://img.icons8.com/color/96/000000/rose.png" alt="Rosa roja" style="width:60px; height:60px;" />
+        <img src="https://img.icons8.com/color/96/000000/rose.png" alt="Rosa roja" style="width:60px; height:60px;" />
+    </div>
+    <h1>¿Quieres ser mi novia de nuevo ajkajajaaj?</h1>
+    <p>Desde que te conocí, mi vida es más bonita. Quiero compartir cada momento contigo y hacerte feliz <br>
+        la verdad es que te amo y pues como mencione ayer jaakjaj, habra muchas cosas que pasaran <br>
+        pero pues la verdad yo quiero hacer todo bien contigo y que salgamos adelante juntos <br>
+        y pues siempre mantuve la fe en que volveriamos a estar juntos jajaja, me llamaron loco la vdd <br>
+        pero no se, yo si te extrañe demasiado cada dia que pasaba y muchas veces jaajaj lit, <br>
+        queria agarrar y marcarte en la madrugada y decirte lo mucho que te extrañaba y que te amo musho <br>
+        pero yo se que vamos a salir adelante, y la verdad es que esta vez quiero que los dos hagamos todo bien <br>
+        que nos comprometamos a ser mejores y apoyarnos mutuamente <br>
+        que digan, nombre esos, tienen todo lo que muchos quisiera tener como pareja,<br>
+        porque, yo se que tu eres el amor de mi vida y no quiero que nada, ni nadie nos separe <br>
+        y estare contigo, en las buenas,en las malas y en las peores siempre apoyandote <br>
+        y y y JAJAJAJ bueno, TEAMOOOOOOOOOOOOOOOOOOOOOOOOOO  UN MONTON LA VDD AKJAKAKKAJA<br>
+        a y algo que no te dije pero es que, cada mes que pasaba lit yo decia, ay:( un mes mas que cumpliria con mi dianita preciosa 
+        <br>¿Aceptas ser mi novia?</p>
+    <div style="display:flex; justify-content:center; gap:18px; margin-bottom:20px;">
+      <button class="btn" id="btnAceptar" onclick="mostrarJardin();">Aceptar</button>
+      <button class="btn btn-gominola" id="btnGominola">n0 vete a ala gominola</button>
+      <div id="mensajeSegura" style="display:none;"></div>
+    </div>
+    <div id="flores" style="display:none; margin-top:20px;"></div>
+    <!-- Fondo de partículas tipo estrellas -->
+    <canvas class="particles"></canvas>
+    <!-- Pasto eliminado -->
+    <script>
+    // Botón escurridizo por toda la pantalla
+    const btnGominola = document.getElementById('btnGominola');
+    btnGominola.addEventListener('mouseenter', function() {
+      const btnWidth = btnGominola.offsetWidth;
+      const btnHeight = btnGominola.offsetHeight;
+      const maxLeft = window.innerWidth - btnWidth - 20;
+      const maxTop = window.innerHeight - btnHeight - 20;
+      const left = Math.random() * maxLeft;
+      const top = Math.random() * maxTop;
+      btnGominola.style.position = 'fixed';
+      btnGominola.style.left = left + 'px';
+      btnGominola.style.top = top + 'px';
+      btnGominola.style.zIndex = 9999;
+    });
+    // Partículas animadas tipo estrellas
+    const canvas = document.querySelector('.particles');
+    const ctx = canvas.getContext('2d');
+    let w = window.innerWidth;
+    let h = window.innerHeight;
+    canvas.width = w;
+    canvas.height = h;
+    let stars = Array.from({length: 80}, () => ({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        r: Math.random()*1.8+0.7,
+        dx: (Math.random()-0.5)*0.2,
+        dy: (Math.random()-0.5)*0.2
+    }));
+    function drawStars() {
+        ctx.clearRect(0,0,w,h);
+        for(const s of stars) {
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, 2*Math.PI);
+            ctx.fillStyle = 'rgba(255,255,200,0.8)';
+            ctx.shadowColor = '#ffe600';
+            ctx.shadowBlur = 10;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            s.x += s.dx;
+            s.y += s.dy;
+            if(s.x<0) s.x=w; if(s.x>w) s.x=0;
+            if(s.y<0) s.y=h; if(s.y>h) s.y=0;
+        }
+        requestAnimationFrame(drawStars);
+    }
+    drawStars();
+    window.addEventListener('resize',()=>{
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = w;
+        canvas.height = h;
+    });
+
+    // Flores del jardín y mostrar mensaje romántico
+    function mostrarJardin() {
+        const floresDiv = document.getElementById('flores');
+        floresDiv.innerHTML = '';
+        floresDiv.style.display = 'flex';
+        floresDiv.style.justifyContent = 'center';
+        floresDiv.style.flexWrap = 'nowrap';
+        floresDiv.style.gap = '40px';
+        for(let j=0; j<4; j++) {
+            const flor = document.createElement('div');
+            flor.className = 'flor flor-grande';
+            // 16 pétalos rojos en círculo
+            for(let i=0; i<16; i++) {
+                const petalo = document.createElement('div');
+                petalo.className = 'petalo';
+                const angle = (360/16)*i;
+                petalo.style.transform = `rotate(${angle}deg) translate(40px)`;
+                flor.appendChild(petalo);
+            }
+            // Centro rojo
+            const centro = document.createElement('div');
+            centro.className = 'centro';
+            flor.appendChild(centro);
+            // Tallo verde
+            const tallo = document.createElement('div');
+            tallo.className = 'tallo';
+            flor.appendChild(tallo);
+            flor.style.margin = '20px 0';
+            floresDiv.appendChild(flor);
+        }
+        // Mostrar el mensaje romántico
+        const mensaje = document.getElementById('mensajeRomantico');
+        mensaje.style.display = 'block';
+        mensaje.style.opacity = '0';
+        setTimeout(() => { mensaje.style.opacity = '1'; }, 100);
+    }
+    </script>
+</body>
+</html>
